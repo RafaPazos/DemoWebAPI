@@ -37,4 +37,4 @@ steps:
        azureSubscription: 'rafa_dev(95b44dd6-5808-485e-9f1a-923eaeef3b37)'
        appType: 'webApp'
        WebAppName: 'rpr-demoapi-webapi'
-       packageForLinux: 'd:\a\1\a\simpleaspnetcore.zip'
+       packageForLinux: '$(build.artifactStagingDirectory)/simpleaspnetcore.zip'
