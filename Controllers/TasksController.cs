@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace simpleaspnetcore.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class TasksController : ControllerBase
     {
         private const string V = "me";
@@ -18,6 +20,7 @@ namespace simpleaspnetcore.Controllers
         /*
          * GET all tasks for user
          */
+         [HttpGet]
         public IEnumerable<Models.Task> Get()
         {
             IEnumerable<Models.Task> userTasks = db.Where(t => t.Owner == V);
@@ -27,7 +30,8 @@ namespace simpleaspnetcore.Controllers
         /*
         * POST a new task for user
         */
-        public IActionResult Post(Models.Task task)
+        [HttpPost]
+        public IActionResult Post([FromBody] Models.Task task)
         {
             if (String.IsNullOrEmpty(task.Text)){
                 return BadRequest("Please provide a task description");
@@ -44,6 +48,7 @@ namespace simpleaspnetcore.Controllers
         /*
          * DELETE a task for user
          */
+        [HttpDelete("{id}")]
         public void Delete(int id)
         {
 
