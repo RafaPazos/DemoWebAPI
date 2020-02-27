@@ -374,7 +374,6 @@ dotnet_diagnostic.CA1725.severity = warning
 
 # Microsoft.Performance
 
-dotnet_diagnostic.CA1801.severity = error
 dotnet_diagnostic.CA1811.severity = error
 dotnet_diagnostic.CA1823.severity = error
 
@@ -483,7 +482,7 @@ dotnet_diagnostic.CA2149.severity = warning
 
 # Microsoft.Usage
 
-dotnet_diagnostic.CA1801.severity = error
+dotnet_diagnostic.CA1801.severity = warning
 dotnet_diagnostic.CA1806.severity = warning
 dotnet_diagnostic.CA2201.severity = warning
 dotnet_diagnostic.CA2205.severity = warning
