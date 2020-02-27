@@ -15,12 +15,12 @@ namespace simpleaspnetcore.Controllers
         // In this service we're using an in-memory list to store tasks, just to keep things simple.
         // All of your tasks will be lost each time you run the service
         private static List<Models.Task> db = new List<Models.Task>();
-        private static int taskId;    
+        private static int taskId;
 
         /*
          * GET all tasks for user
          */
-         [HttpGet]
+        [HttpGet]
         public IEnumerable<Models.Task> Get()
         {
             IEnumerable<Models.Task> userTasks = db.Where(t => t.Owner == V);
@@ -33,7 +33,8 @@ namespace simpleaspnetcore.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Models.Task task)
         {
-            if (String.IsNullOrEmpty(task.Text)){
+            if (String.IsNullOrEmpty(task.Text))
+            {
                 return BadRequest("Please provide a task description");
             }
 
