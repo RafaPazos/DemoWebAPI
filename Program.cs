@@ -19,6 +19,12 @@ namespace simpleaspnetcore
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("dbconfig.json",
+                        optional: true,
+                        reloadOnChange: true);
+                })
                 .UseStartup<Startup>();
     }
 }
