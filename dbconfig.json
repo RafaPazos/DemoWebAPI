@@ -1,0 +1,12 @@
+{
+    "MainKey":  "0982345hj980u2354jt289u",
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information"
+      }
+    },
+    "AllowedHosts": "*",
+    "Password":"pass1234543"
+  }
