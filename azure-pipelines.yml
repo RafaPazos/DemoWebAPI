@@ -14,27 +14,31 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-   - task: NuGetToolInstaller@1
-   - task: NuGetCommand@2
+   - task: UseDotNet@2
+     displayName: 'Install .NET Core SDK'
      inputs:
-       restoreSolution: '$(solution)'
+       version: 3.0.x
+       performMultiLevelLookup: true
 
-  #  - task: DotNetCoreCLI@2
-  #    displayName: Build
+   - task: DotNetCoreCLI@2
+     inputs:
+       command: restore
+       projects: '**/*.csproj'
+       feedsToUse: config
+       nugetConfigPath: NuGet.config    # Relative to root of the repository
+    
+   - task: DotNetCoreCLI@2
+     displayName: Build
+     inputs:
+       command: build
+       projects: '**/*.csproj'
+       arguments: '--configuration Release' # Update this to match your need  
+
+  #  - task: VSBuild@1
   #    inputs:
-  #      projects: '$(Parameters.RestoreBuildProjects)'
-  #      arguments: '--configuration $(BuildConfiguration)'    
-
-   - task: VSBuild@1
-     inputs:
-       msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-       platform: '$(buildPlatform)'
-       configuration: '$(buildConfiguration)'
-
-   - task: VSTest@2
-     inputs:
-       platform: '$(buildPlatform)'
-       configuration: '$(buildConfiguration)' 
+  #      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+  #      platform: '$(buildPlatform)'
+  #      configuration: '$(buildConfiguration)'
 
    - task: CredScan@2
      inputs:
