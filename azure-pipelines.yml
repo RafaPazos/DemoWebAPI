@@ -9,10 +9,6 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 steps:
    - task: UseDotNet@2
      displayName: 'Install .NET Core SDK'
@@ -24,7 +20,7 @@ steps:
      displayName: Restore
      inputs:
        command: restore
-       projects: '$(Parameters.RestoreBuildProjects)'
+       projects: '**/*.csproj'
      
    - task: DotNetCoreCLI@2
      displayName: Build
