@@ -68,7 +68,7 @@ steps:
      inputs:
        AllTools: false
        APIScan: false
-       BinSkim: false
+       BinSkim: true
        BinSkimBreakOn: 'WarningAbove'
        CodesignValidation: false
        CredScan: true
