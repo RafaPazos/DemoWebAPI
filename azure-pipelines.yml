@@ -20,12 +20,18 @@ steps:
      inputs:
        restoreSolution: '$(solution)'
 
-   - task: VSBuild@1
+   - task: DotNetCoreCLI@2
+     displayName: Build
      inputs:
-       solution: '$(solution)'
-       msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-       platform: '$(buildPlatform)'
-       configuration: '$(buildConfiguration)'
+       projects: '$(Parameters.RestoreBuildProjects)'
+       arguments: '--configuration $(BuildConfiguration)'    
+
+   #- task: VSBuild@1
+   #  inputs:
+   #    solution: '$(solution)'
+   #    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+   #    platform: '$(buildPlatform)'
+   #    configuration: '$(buildConfiguration)'
 
    - task: VSTest@2
      inputs:
@@ -34,6 +40,43 @@ steps:
 
    - task: CredScan@2
      inputs:
-       toolMajorVersion: 'V1'
+       toolMajorVersion: 'V2'
+   
+   - task: BinSkim@3
+     inputs:
+       InputType: 'CommandLine'
 
+   - task: RoslynAnalyzers@2
+     inputs:
+       userProvideBuildInfo: 'auto'
+    
+   - task: AntiMalware@3
+     inputs:
+       InputType: 'Basic'
+       ScanType: 'CustomScan'
+       FileDirPath: '$(Build.StagingDirectory)'
+       EnableServices: false
+       SupportLogOnError: false
+       TreatSignatureUpdateFailureAs: 'Warning'
+       SignatureFreshness: 'UpToDate'
+       TreatStaleSignatureAs: 'Error'
+   - task: SdtReport@1
+     inputs:
+       AllTools: false
+       APIScan: false
+       BinSkim: true
+       BinSkimBreakOn: 'WarningAbove'
+       CodesignValidation: false
+       CredScan: true
+       FortifySCA: false
+       FxCop: false
+       ModernCop: false
+       MSRD: false
+       PoliCheck: false
+       RoslynAnalyzers: true
+       RoslynAnalyzersBreakOn: 'WarningAbove'
+       SDLNativeRules: false
+       Semmle: false
+       TSLint: false
+       ToolLogsNotFoundAction: 'Standard'    
   
