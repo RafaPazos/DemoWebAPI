@@ -29,26 +29,14 @@ steps:
        projects: '**/*.csproj'
        arguments: '--configuration Debug' 
 
-
-  #      - task: DotNetCoreCLI@2
-  # displayName: Build
-  # inputs:
-  #   projects: '$(Parameters.RestoreBuildProjects)'
-  #   arguments: '--configuration $(BuildConfiguration)'
-  #  - task: VSBuild@1
-  #    inputs:
-  #      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-  #      platform: '$(buildPlatform)'
-  #      configuration: '$(buildConfiguration)'
-
    - task: CredScan@2
      inputs:
        toolMajorVersion: 'V2'
    
-   - task: BinSkim@3
-     inputs:
-       InputType: 'CommandLine'
-       Target: 'analyze *.dll *.exe --recurse --verbose'
+  #  - task: BinSkim@3
+  #    inputs:
+  #      InputType: 'CommandLine'
+  #      Target: 'analyze *.dll *.exe --recurse --verbose'
 
    - task: RoslynAnalyzers@2
      inputs:
@@ -64,6 +52,7 @@ steps:
        TreatSignatureUpdateFailureAs: 'Warning'
        SignatureFreshness: 'UpToDate'
        TreatStaleSignatureAs: 'Error'
+       
    - task: SdtReport@1
      inputs:
        AllTools: false
