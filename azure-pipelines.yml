@@ -48,6 +48,7 @@ steps:
    - task: BinSkim@3
      inputs:
        InputType: 'CommandLine'
+       Target: 'analyze *.dll *.exe --recurse --verbose'
 
    - task: RoslynAnalyzers@2
      inputs:
