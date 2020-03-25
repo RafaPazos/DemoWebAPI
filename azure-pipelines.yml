@@ -21,12 +21,11 @@ steps:
        performMultiLevelLookup: true
 
    - task: DotNetCoreCLI@2
+     displayName: Restore
      inputs:
        command: restore
-       projects: '**/*.csproj'
-       feedsToUse: config
-       nugetConfigPath: NuGet.config    # Relative to root of the repository
-    
+       projects: '$(Parameters.RestoreBuildProjects)'
+     
    - task: DotNetCoreCLI@2
      displayName: Build
      inputs:
@@ -34,6 +33,12 @@ steps:
        projects: '**/*.csproj'
        arguments: '--configuration Release' # Update this to match your need  
 
+
+  #      - task: DotNetCoreCLI@2
+  # displayName: Build
+  # inputs:
+  #   projects: '$(Parameters.RestoreBuildProjects)'
+  #   arguments: '--configuration $(BuildConfiguration)'
   #  - task: VSBuild@1
   #    inputs:
   #      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
