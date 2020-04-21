@@ -4,18 +4,16 @@ This is a Demo Web API, it is only implemented for MSRD tests
 
 This API uses ASP.NET Core 2.2 now
 
-```mermaid
-sequenceDiagram
-    participant John
-    participant Alice
-    Alice->>John: Hello John, how are you?
-    John-->>Alice: Great!
-```
-
-analyzers:
+## analyzers
 
 dotnet add package StyleCop.Analyzers --version 1.1.118
 dotnet add package Microsoft.CodeAnalysis.FxCopAnalyzers --version 2.9.8
+
+## architecture
+
+Here I follow a DDD Microservices based architecture:
+
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
 
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/RafaPazos/DemoWebAPI.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/RafaPazos/DemoWebAPI/alerts/)
